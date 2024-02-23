@@ -3,16 +3,30 @@
 @section('content')
     <div class="container">
         <h1>Ajouter un étudiant</h1>
+        
+        @if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
         <form action="{{ route('etudiants.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nom">Nom :</label>
                 <input type="text" class="form-control" id="nom" name="nom" required>
             </div>
-            <div class="form-group">
-                <label for="prenom">Prénom :</label>
-                <input type="text" class="form-control" id="prenom" name="prenom" required>
-            </div>
+          
             <div class="form-group">
                 <label for="date_naissance">Date de naissance :</label>
                 <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
@@ -35,6 +49,11 @@
                     @endforeach
                     
                 </select>
+
+                <div class="form-group">
+                    <label for="adresse">Adresse :</label> 
+               <textarea name="adresse" id="" cols="30" rows="10" class="form-control"></textarea>
+                </div>
                 
             </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -46,6 +65,9 @@
     </div>
     
 </div>
+<br>
+<br>
+<br>
 
 @endsection
 

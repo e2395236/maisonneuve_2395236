@@ -13,6 +13,9 @@ class VilleController extends Controller
     public function index()
     {
         //
+
+        $villes = Ville::all();
+        return view('villes.index', ['villes' => $villes]);
     }
 
     /**
@@ -21,6 +24,8 @@ class VilleController extends Controller
     public function create()
     {
         //
+
+        return view('villes.create');
     }
 
     /**
@@ -29,15 +34,16 @@ class VilleController extends Controller
     public function store(Request $request)
     {
         //
+        $ville = new Ville();
+        $ville->nom = $request->nom;
+        $ville->save();
+        return redirect()->route('villes.index')->with('success', 'Ville ajoutée avec succès !'); 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Ville $ville)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -45,15 +51,26 @@ class VilleController extends Controller
     public function edit(Ville $ville)
     {
         //
+
+        return view('villes.edit', ['ville' => $ville]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ville $ville)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+    
+        $ville = Ville::findOrFail($id);
+        $ville->nom = $request->nom;
+        $ville->save();
+    
+        return redirect()->route('villes.index')->with('success', 'Nom de la ville mis à jour avec succès.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -61,5 +78,8 @@ class VilleController extends Controller
     public function destroy(Ville $ville)
     {
         //
+
+        $ville->delete();
+        return redirect()->route('villes.index')->with('success', 'Ville supprimée avec succès !');
     }
 }

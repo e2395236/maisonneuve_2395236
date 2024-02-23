@@ -38,11 +38,14 @@ class EtudiantController extends Controller
         $etudiant = new Etudiant();
       
         $etudiant->nom = $request->nom;
-        $etudiant->prenom = $request->prenom;
+        $etudiant->adresse = $request->adresse;
+        $etudiant->telephone = $request->telephone;
+        $etudiant->email = $request->email;
         $etudiant->date_naissance = $request->date_naissance;
         $etudiant->ville_id = $request->ville_id;
         $etudiant->save();
-        return redirect()->route('etudiants.index');
+
+        return redirect()->route('etudiants.index')->with('success', 'Étudiant ajouté avec succès !');
       
     }
 
@@ -79,7 +82,8 @@ class EtudiantController extends Controller
         $etudiants->date_naissance = $request->date_naissance;
         $etudiants->ville_id = $request->ville_id;
         $etudiants->save();
-        return redirect()->route('etudiants.show', $etudiants->id);
+
+        return redirect()->route('etudiants.show', $etudiants->id)->with('success', 'Étudiant mis à jour avec succès !');
     }
 
     /**
@@ -89,6 +93,7 @@ class EtudiantController extends Controller
     {
         $etudiants = Etudiant::find($id);
         $etudiants->delete();
-        return redirect('/etudiants');
+        
+       return redirect('/etudiants')->with('success', 'Étudiant supprimé avec succès !');
     }
 }

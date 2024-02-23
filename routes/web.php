@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\VilleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,25 @@ Route::put('/etudiants/{etudiant}', [EtudiantController::class, 'update'])->name
 
 // Suppression d'un étudiant
 Route::delete('/etudiants/{etudiant}', [EtudiantController::class, 'destroy'])->name('etudiants.destroy');
+
+
+// Affichage de la liste des villes
+Route::get('/villes', [VilleController::class, 'index'])->name('villes.index');
+
+// Formulaire de création d'une nouvelle ville
+Route::get('/villes/create', [VilleController::class, 'create'])->name('villes.create');
+
+// Enregistrement d'une nouvelle ville
+Route::post('/villes', [VilleController::class, 'store'])->name('villes.store');
+
+// Affichage d'une ville sélectionée
+Route::get('/villes/{ville}', [VilleController::class, 'show'])->name('villes.show');
+
+// Formulaire de mise à jour d'une ville
+Route::get('/villes/{ville}/edit', [VilleController::class, 'edit'])->name('villes.edit');
+
+// Mise à jour d'une ville
+Route::put('/villes/{ville}', [VilleController::class, 'update'])->name('villes.update');
+
+// Suppression d'une ville
+Route::delete('/villes/{ville}', [VilleController::class, 'destroy'])->name('villes.destroy');
